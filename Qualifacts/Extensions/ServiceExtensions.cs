@@ -77,8 +77,8 @@ namespace Qualifacts.Api.Extensions
                 new RateLimitRule
                 {
                     Endpoint = "*",
-                    Limit = 30,
-                    Period = "5m"
+                    Limit = 500,
+                    Period = "1m"
                 }
             };
 
@@ -125,7 +125,7 @@ namespace Qualifacts.Api.Extensions
 
                     ValidIssuer = jwtSettings["validIssuer"],
                     ValidAudience = jwtSettings["validAudience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey!))
                 };
             });
         }

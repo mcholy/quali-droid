@@ -1,7 +1,8 @@
+import ComputeForm from "../../components/ComputeForm/ComputeForm";
 
 function Home() {
   return (
-    <div>Home</div>
+    <ComputeForm/>
   )
 }
 

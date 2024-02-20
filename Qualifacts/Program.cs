@@ -16,16 +16,7 @@ namespace Qualifacts
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
-            builder.Services.AddControllers(config =>
-            {
-                config.RespectBrowserAcceptHeader = true;
-                config.ReturnHttpNotAcceptable = true;
-                config.CacheProfiles.Add("120SecondsDuration", new CacheProfile { Duration = 120 });
-            }).AddXmlDataContractSerializerFormatters()
-  .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
-
+       
 
             var generalConfiguration = new GeneralConfiguration();
 
@@ -74,6 +65,7 @@ namespace Qualifacts
             {
                 config.RespectBrowserAcceptHeader = true;
                 config.ReturnHttpNotAcceptable = true;
+                //config.CacheProfiles.Add("120SecondsDuration", new CacheProfile { Duration = 120 });
             }).AddXmlDataContractSerializerFormatters()
   .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
 

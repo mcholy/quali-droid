@@ -1,6 +1,6 @@
-import { Navigate, useLocation } from "react-router-dom";
-import Home from "../../pages/Home/Home";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { authStore } from "../../stores/authStore";
+
 
 const PrivateRoute = () => {
   const location = useLocation();
@@ -8,7 +8,7 @@ const PrivateRoute = () => {
   return (
     <>
       {accessToken ? (
-        <Home />
+        <Outlet />
       ) : (
         <Navigate to="/login" replace={true} state={{ from: location }} />
       )}

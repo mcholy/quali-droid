@@ -13,7 +13,7 @@ namespace Qualifacts.Presentation.ActionFilters
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            if (!(context.ActionArguments["calculation"] is CalculationForCreationDto calculation))
+            if ((context.ActionArguments["calculation"] is not CalculationForCreationDto calculation))
             {
                 context.Result = new BadRequestObjectResult("calculation is required.");
                 return;
@@ -27,9 +27,9 @@ namespace Qualifacts.Presentation.ActionFilters
             base.OnActionExecuting(context);
         }
 
-        private bool IsNumeric(object value)
+        private static bool IsNumeric(object value)
         {
-            return value != null && int.TryParse(value.ToString(), out _);
+            return value != null && int.TryParse(value.ToString(), out _) ;
         }
     }
 }

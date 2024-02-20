@@ -4,8 +4,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { login } from '../../middleware/api';
 import { authResponse, loginDTO } from '../../models/model';
-import { authStore, hydrateAuth } from '../../stores/authStore';
-import { getClaims, saveTokenInLocalStorage } from '../../utils/handleJwt';
+import { authStore } from '../../stores/authStore';
+import { getClaims } from '../../utils/handleJwt';
 import Button from '../Button/Button';
 import ErrorSection from '../ErrorSection/ErrorSection';
 import './LoginForm.css';
@@ -13,7 +13,7 @@ import './LoginForm.css';
 function LoginForm() {
   const [error, setError] = useState<string>();
   const location = useLocation();
-  const { setCredentials } = authStore();
+  const { setCredentials, signIn } = authStore();
   const navigate = useNavigate();
 
   const initialValues: loginDTO = {
@@ -31,10 +31,10 @@ function LoginForm() {
   const handleSubmit = async (values: loginDTO) => {
     try {
       const response = await login(values);
-      saveTokenInLocalStorage(response as authResponse);
+      signIn((response as authResponse).accessToken, (response as authResponse).refreshToken);
       const { claims } = getClaims();
       setCredentials(claims);
-      hydrateAuth();
+      //hydrateAuth();
       const { from } = location.state || { from: { pathname: '/' } };
       navigate(from, { replace: true });
     } catch (error) {
@@ -87,7 +87,7 @@ function LoginForm() {
                     </div>
                     <label className="LoginForm__label">
                       <span className="LoginForm__label-text">
-                        User: qualidroid, Pass: Quali022024#
+                        User: aljo1915@gmail.com, Pass: Quali022024#
                       </span>
                     </label>
                   </div>
