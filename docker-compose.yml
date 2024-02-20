@@ -1,0 +1,30 @@
+version: '3.4'
+
+services:
+  qualifacts-db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: Database
+    restart: always
+    environment:
+        - ACCEPT_EULA=Y
+        - MSSQL_SA_PASSWORD=Quali022024#
+        - MSSQL_PID=Express
+    volumes:
+        - ./.containers/database:/var/opt/mssql/data
+    ports:
+        - "1433:1433"
+  qualifacts:
+    image: ${DOCKER_REGISTRY-}qualifacts
+    build:
+      context: .
+      dockerfile: Qualifacts/Dockerfile
+    depends_on:
+      - qualifacts-db
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=qualifacts-db;Database=qualifacts;User Id=sa;Password=Quali022024#;"
+      SECRET: "ad3801fd-6d31-47c2-91dd-50576c835d3b"
+    volumes:
+        - ./.containers/myapp:/root/.aspnet/DataProtection-Keys
+    ports:
+        - "80:80"
+        - "52683:443"
